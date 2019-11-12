@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h3>1. berapakah 1 + 1</h3>
+    <input type="radio" name="nomor1" value="1">1
+    <input type="radio" name="nomor1" value="2">2
+    <input type="radio" name="nomor1" value="3">3
+    <input type="radio" name="nomor1" value="4">4<br><br>
+    <b>1. berapakah 1 + 2</b><br>
+    <input type="radio" name="nomor2" value="1">1
+    <input type="radio" name="nomor2" value="2">2
+    <input type="radio" name="nomor2" value="3">3
+    <input type="radio" name="nomor2" value="4">4 <br><br>
+    <b>1. berapakah 2 + 2</b><br>
+    <input type="radio" name="nomor3" value="1">1
+    <input type="radio" name="nomor3" value="2">2
+    <input type="radio" name="nomor3" value="3">3
+    <input type="radio" name="nomor3" value="4">4<br><br>
+    <b>1. berapakah 2 - 1</b><br>
+    <input type="radio" name="nomor4" value="1">1
+    <input type="radio" name="nomor4" value="2">2
+    <input type="radio" name="nomor4" value="3">3
+    <input type="radio" name="nomor4" value="4">4<br><br>
+    <button id="" onclick="submit()">S U B M I T</button>
+
+    <p id="nilai"></p>
+</body>
+
+</html>
+
+<script>
+    function submit() {
+        var hasil = 0
+        var nomor1 = document.getElementsByName('nomor1');
+        console.log(nomor1)
+        var nomor2 = document.getElementsByName('nomor2');
+        var nomor3 = document.getElementsByName('nomor3');
+        var nomor4 = document.getElementsByName('nomor4');
+        for (var i = 0; i < nomor1.length; i++) {
+            if (nomor1[i].checked) {
+                nomor1 = (nomor1[i].value)
+            }
+        }
+        for (var i = 0; i < nomor2.length; i++) {
+            if (nomor2[i].checked) {
+                nomor2 = (nomor2[i].value)
+            }
+        }
+        for (var i = 0; i < nomor3.length; i++) {
+            if (nomor3[i].checked) {
+                nomor3 = (nomor3[i].value)
+            }
+        }
+        for (var i = 0; i < nomor4.length; i++) {
+            if (nomor4[i].checked) {
+                nomor4 = (nomor4[i].value)
+            }
+        }
+        if (nomor1 == 2) {
+            hasil += 25
+        }
+        if (nomor2 == 3) {
+            hasil += 25
+        }
+        if (nomor3 == 4) {
+            hasil += 25
+        }
+        if (nomor4 == 1) {
+            hasil += 25
+        }
+        output = "selamat nilai akhir " + hasil
+        document.getElementById("nilai").innerHTML = nomor1
+    }
+
+</script>
