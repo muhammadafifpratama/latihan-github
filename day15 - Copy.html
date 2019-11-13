@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        table,
+        tr,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 10px;
+        }
+    </style>
+    <center>
+        <table id="hasil">
+            <thead>
+                <tr>
+
+                </tr>
+            </thead>
+            <tbody id=tambah>
+            </tbody>
+        </table>
+        <table>
+            <thead>
+                <tr>
+                    <td>nama</td>
+                    <td>image</td>
+                    <td>harga</td>
+                    <td>action</td>
+
+                </tr id="">
+            </thead>
+            <tbody id=asd>
+            </tbody>
+        </table>
+    </center>
+
+
+    <script>
+        class product {
+            constructor(nama, image, harga) {
+                this.nama = nama
+                this.image = image
+                this.harga = harga
+            }
+        }
+
+        var menu = [
+            new product("iphone", "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone8-gallery1-2017?wid=4000&hei=3072&fmt=jpeg&qlt=80&op_usm=0.5,0.5&.v=1506703285757", 100000),
+            new product("android", "https://cdn57.androidauthority.net/wp-content/uploads/2019/09/android_10_dark_theme_as_shown_on_a_google_pixel_2_xl-1200x675.jpg", 200000),
+            new product("asujs", "https://img-us1.asus.com/A/show/AW000706/2019/0911/AM0000002/201909AM110000002_15681567930688260044392.jpg!t500x500", 300000),
+        ]
+
+        var cart = []
+
+        function printmenu() {
+            var output = ""
+            for (var i = 0; i < menu.length; i++) {
+                output += `
+    <tr id="${i}">
+    <td>${menu[i].nama}</td>
+    <td><img src="${menu[i].image}"  width = "100px"></td>
+    <td>${menu[i].harga}</td>
+    <td><input type ="button" value="add to cart" onclick = "addtocart(${i})">
+    <input type ="button" value="edit cart" onclick = "edit(${i})">
+    </tr>
+    `
+            } output += `
+            <tr>
+    <td><input type="text" id="text1"></td>
+    <td><input type="text" id="text2"></td>
+    <td><input type="number" id="text3"></td>
+    <td><input type ="button" value="add product"
+    onclick = "addproduct()">
+    </tr>
+`
+            document.getElementById("hasil").innerHTML = output
+        }
+
+        function addproduct() {
+            var nama = document.getElementById("text1").value;
+            var gambar = document.getElementById("text2").value;
+            var harga = document.getElementById("text3").value;
+            menu.push(new product(nama, gambar, harga))
+            printmenu()
+        }
+
+        function edit(index) {
+            var output = ""
+            for (var i = 0; i < 1; i++) {
+                output += `
+    <tr>
+    <td><input type="text" id="text1"></td>
+    <td><input type="text" id="text2"></td>
+    <td><input type="text" id="text3"></td>
+    <td><input type ="button" value="cancel" onclick = "printmenu(${index})">
+    <input type ="button" value="confirm" onclick = "confirm(${index})">
+    </tr>
+    `}
+
+            document.getElementById(index).innerHTML = output
+        }
+        function confirm(index) {
+            var namabaru = document.getElementById("text1").value;
+            var gambarbaru = document.getElementById("text2").value;
+            var hargabaru = document.getElementById("text3").value;
+            console.log(namabaru, gambarbaru, hargabaru)
+            menu[index].nama = namabaru
+            menu[index].image = gambarbaru
+            menu[index].harga = hargabaru
+            printmenu()
+        }
+        function editproduct(i) {
+            menu[i].nama = `<input type="text" id="text1">`
+            menu[i].image = `<input type="text" id="text2">`
+            menu[i].harga = `<input type="text" id="text3">`
+            //var namabaru = prompt("nama")
+            var gambarbaru = prompt("gambar")
+            //var hargabaru = prompt("harga")
+            var namabaru = document.getElementById("text1").value;
+            var gambarbaru = document.getElementById("text2").value;
+            var hargabaru = document.getElementById("text3").value;
+            if (namabaru === "") {
+                namabaru = menu[i].nama
+            }
+            if (gambarbaru === "") {
+                gambarbaru = menu[i].image
+            }
+            if (hargabaru === "") {
+                hargabaru = menu[i].harga
+            } else if (hargabaru > 0) {
+                parseInt(hargabaru)
+            }
+            menu[i].nama = namabaru
+            menu[i].image = gambarbaru
+            menu[i].harga = hargabaru
+
+            //var output = ""
+            // menu[i].nama = `<input type="text" id="text1">`
+            // menu[i].image = `<input type="text" id="text2">`
+            // menu[i].harga = `<input type="text" id="text3">`
+            printmenu()
+            // for (var j = 0; j < menu.length; j++) {
+            //     output += `
+            // <tr>
+            // <td>${menu[j].nama}</td>
+            // <td><img src="${menu[j].image}" alt = "salah" width = "100px"></td>
+            // <td>${menu[j].harga}</td>
+            // <td><input type ="button" value="add to cart" onclick = "addtocart(${j})">
+            // <input type ="button" value="edit cart" onclick = "editproduct(${j})">
+            // <input type ="button" value="cancel" onclick = "printmenu()">
+            // </tr>
+            // `
+
+            //document.getElementById("hasil").innerHTML = output
+            // menu[i].nama = `<input type="text" id="text1">`
+            // var namabaru = document.getElementById("text1").value
+            // var gambarbaru = document.getElementById("text2").value
+            // var hargabaru = document.getElementById("text3").value
+            // menu[i].image = `<input type="text" id="text2">`
+            // menu[i].harga = `<input type="text" id="text3">`
+            // printmenu()
+            //}
+            // menu[i].nama = document.getElementById("text1").value;
+            // menu[i].image = document.getElementById("text2").value;
+            // menu[i].harga = document.getElementById("text3").value;
+            // printmenu()
+            //menu[i].push(namabaru, gambarbaru, hargabaru)
+        }
+
+        // function addproduct() {
+        //     var output = ""
+        //     var output1 = ""
+        //     var nama = document.getElementById('text1').value;
+        //     var gambar = document.getElementById('text2').value;
+        //     var harga = document.getElementById('text3').value;
+        //     output += `
+        // <tr id="tambah">
+        // <td>${nama}</td>
+        // <td><img src="${gambar}" alt = "foto hp" width = "100px"></td>
+        // <td>${harga}</td>
+        // <td><input type ="button" value="add to cart">
+        // </tr>`
+        //     output1 +=
+        //         `<tr id="isi lagi">
+        // <td><input type="text" id="text1"></td>
+        // <td><input type="text" id="text2"></td>
+        // <td><input type="number" id="text3"></td>
+        // <td><input type ="button" value="add product"
+        // onclick = "addproduct()">
+        // </tr>
+        // `
+        //     document.getElementById("tambah").innerHTML = output
+        //     document.getElementById("isi lagi").innerHTML = output1
+
+        // }
+
+        function printcart() {
+            if (cart.length === 0) {
+                return null
+            }
+            var output = ""
+            for (var i = 0; i < cart.length; i++) {
+                output += `
+    <tr>
+    <td>${cart[i].nama}</td>
+    <td><img src="${cart[i].image}" alt = "foto hp" width = "100px"></td>
+    <td>${cart[i].harga}</td>
+    <input type ="button" value="delete"
+    onclick="deletecart(${i})"></td>
+    </tr>
+    `
+                document.getElementById("asd").innerHTML = output
+            }
+        }
+        function addtocart(i) {
+            cart.push(menu[i])
+            console.log(cart)
+            printcart()
+        }
+
+        function deletecart(i) {
+            cart.splice(i, 1)
+            console.log(cart)
+            printcart()
+        }
+        printmenu()
+    </script>
+</body>
+
+</html>
