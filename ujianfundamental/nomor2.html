@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <style>
+        table,
+        tr,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 10px;
+        }
+    </style>
+    <center>
+        <h1>Madding</h1>
+        username: <input type="text" id="username"> <br><br>
+        password: <input type="text" id="password"> <br><br>
+        <button onclick="login()">login</button><br><br>
+        <!-- <button onclick="logout()">logout</button> -->
+
+
+
+        <body>
+            <table>
+                <thead>
+                    <tr>
+                        <td>No</td>
+                        <td>Kegiatan</td>
+                        <td>Hari</td>
+                        <td>Poster</td>
+                        <td>Act</td>
+                    </tr>
+                </thead>
+                <tbody id="menu">
+
+                </tbody>
+
+
+                <!-- </table>
+        <h3 id="checkout">Cart</h3>
+        <table>
+            <thead>
+                <tr>
+                    <td>id</td>
+                    <td>Nama</td>
+                    <td>Image</td>
+                    <td>Harga</td>
+                    <td>tanggal</td>
+                    <td>Action</td>
+                </tr>
+            </thead>
+            <tbody id="hasil"> -->
+
+                </tbody>
+            </table>
+            <h1 id="salah"></h1>
+            <button onclick="logout()">logout</button>
+    </center>
+</body>
+
+</html>
+
+<script>
+
+    class Product {
+        constructor(kegiatan, poster, hari) {
+            this.kegiatan = kegiatan
+            this.poster = poster
+            this.hari = hari
+        }
+    }
+    var menu = [
+        new Product('lari', 'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone8-gallery1-2017?wid=4000&hei=3072&fmt=jpeg&qlt=80&op_usm=0.5,0.5&.v=1506703285757', "senin"),
+        new Product('estafet', 'https://img-us1.asus.com/A/show/AW000706/2019/0911/AM0000002/201909AM110000002_15681567930688260044392.jpg!t500x500', "selasa")
+    ]
+    var cart = []
+    function printMenu() {
+        var output = ''
+        for (var i = 0; i < menu.length; i++) {
+            output += `
+            <tr id="${i}">
+    <td>${i + 1}</td>
+    <td>${menu[i].kegiatan}</td>
+    <td>${menu[i].hari}</td>
+    <td><img src="${menu[i].poster}"  width = "100px"></td>
+</td>
+    </tr>
+                `
+        }
+        document.getElementById("menu").innerHTML = output
+    }
+
+    function printmenuadmin() {
+        var output = ""
+        for (var i = 0; i < menu.length; i++) {
+            output += `
+    <tr id="${i}">
+    <td>${i + 1}</td>
+    <td>${menu[i].kegiatan}</td>
+    <td>${menu[i].hari}</td>
+    <td><img src="${menu[i].poster}"  width = "100px"></td>
+    <td><input type ="button" value="delete" onclick ="hapus(${i})" >
+    <input type ="button" value="edit" onclick = "edit(${i})">
+</td>
+    </tr>
+    `
+        } output += `
+            <tr>
+    <td>${i + 1}</td>
+    <td><input type="text" id="text1"></td>
+    <td><select id="option">
+        <option value="senin">senin</option>
+        <option value="selasa">selasa</option>
+        <option value="rabu">rabu</option>
+        <option value="kamis">kamis</option>
+        <option value="jumat">jumat</option>
+        <option value="sabtu">sabtu</option>
+        <option value="minggu">minggu</option>
+    </select></td>
+    <td><input type="text" id="text3"></td>
+    <td><input type ="button" value="add todo"
+    onclick = "addproduct()">
+    </tr>
+`
+        document.getElementById("menu").innerHTML = output
+    }
+
+    function addproduct() {
+        var kegiatan = document.getElementById("text1").value;
+        var hari = document.getElementById("option").value;
+        var poster = document.getElementById("text3").value;
+        menu.push(new Product(kegiatan, poster, hari))
+        printmenuadmin()
+    }
+
+    function edit(index) {
+        printmenuadmin()
+        var output = ""
+        for (var i = 0; i < 1; i++) {
+            output += `
+    <tr>
+    <td>${i + 1}</td>
+    <td><input type="text" id="nama"></td>
+    <td><select id="option">
+        <option value="senin">senin</option>
+        <option value="selasa">selasa</option>
+        <option value="rabu">rabu</option>
+        <option value="kamis">kamis</option>
+        <option value="jumat">jumat</option>
+        <option value="sabtu">sabtu</option>
+        <option value="minggu">minggu</option>
+    </select></td>
+    <td><input type="text" id="gambar"></td>
+    <td><input type ="button" value="cancel" onclick = "printmenuadmin(${index})">
+    <input type ="button" value="confirm" onclick = "confirm(${index})">
+    </tr>
+    `}
+        document.getElementById(index).innerHTML = output
+    }
+
+    function confirm(index) {
+        var namabaru = document.getElementById("nama").value;
+        var gambarbaru = document.getElementById("gambar").value;
+        var haribaru = document.getElementById("option").value;
+        console.log(namabaru, gambarbaru, haribaru)
+        menu[index].nama = namabaru
+        menu[index].image = gambarbaru
+        menu[index].tanggal = haribaru
+        printmenuadmin()
+    }
+
+    function printCart() {
+        var output = ''
+        for (var i = 0; i < cart.length; i++) {
+            output += `
+                    <tr>
+                        <td>${i + 1}</td>
+                        <td>${cart[i].nama}</td>
+                        <td><img src="${cart[i].image}" alt='foto hp' width="100px" ></td>
+                        <td>${cart[i].harga}</td>
+                        <td>${cart[i].tanggal}</td>
+                        <td><input type="button" value="Delete" onclick="deleteCart(${i})"></td>
+                    </tr>
+                `
+        }
+        document.getElementById("hasil").innerHTML = output
+    }
+    function addToCart(index) {
+        cart.push(menu[index])
+        printCart()
+    }
+
+    function hapus(index) {
+        var output = ""
+        for (var i = 0; i < 1; i++) {
+            output += `
+    <tr id="${i}">
+    <td>${i + 1}</td>
+    <td>${menu[i].kegiatan}</td>
+    <td>${menu[i].hari}</td>
+    <td><img src="${menu[i].poster}"  width = "100px"></td>
+    <td><input type ="button" value="no" onclick ="printmenuadmin(${index})" >
+    <input type ="button" value="yes" onclick = "deletemenu(${i})">
+</td>
+    </tr>
+    `
+        }
+        document.getElementById(index).innerHTML = output
+    }
+
+    function deletemenu(index) {
+        menu.splice(index, 1)
+        printmenuadmin()
+    }
+
+    function checkout() {
+        output = 0
+        for (var i = 0; i < cart.length; i++) {
+            output += cart[i].harga
+        }
+        var akhir = "terima kasih telah membeli total harga anda adalah " + output
+        document.getElementById("checkout").innerHTML = akhir
+        cart.splice(0, cart.length)
+        printCart()
+    }
+
+    function login() {
+        var login = document.getElementById("username").value
+        var password = document.getElementById("password").value
+
+        //var login = document.getElementsById('text1');
+        console.log(login)
+        //var password = document.getElementsById('text2');
+        console.log(password)
+        if (login == "user" && password == "user") {
+            printMenu()
+            document.getElementById("salah").innerHTML = "user"
+        }
+        else if (login == "admin" && password == "admin") {
+            printmenuadmin()
+            document.getElementById("salah").innerHTML = "admin"
+        }
+        else { document.getElementById("salah").innerHTML = "Password salah" }
+    }
+
+    function logout() {
+        var output = ''
+        for (var i = 0; i = 0; i++) {
+            output += `
+            <tr>
+                        <td>No</td>
+                        <td>Kegiatan</td>
+                        <td>Hari</td>
+                        <td>Poster</td>
+                        <td>Act</td>
+                    </tr>
+                `
+        }
+        document.getElementById("menu").innerHTML = output
+        document.getElementById("salah").innerHTML = ""
+    }
+
+</script>
